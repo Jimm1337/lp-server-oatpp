@@ -14,7 +14,6 @@ void run() {
     OATPP_COMPONENT(network::HandlerPtr_t, connectionHandler);
     OATPP_COMPONENT(network::ProviderPtr_t, connectionProvider);
 
-
     auto myController = std::make_shared<MyController>();
     auto swaggerController = oatpp::swagger::Controller::createShared(myController->getEndpoints());
 

@@ -7,11 +7,18 @@
 
 #include OATPP_CODEGEN_BEGIN(DTO)
 
-class MessageDto : public oatpp::DTO {
-    DTO_INIT(MessageDto, DTO)
+class DtoData : public oatpp::DTO {
+    DTO_INIT(DtoData, DTO)
 
-    DTO_FIELD(Int32, statusCode);
-    DTO_FIELD(String, message);
+    DTO_FIELD(UnorderedFields<String>, data) = {};
+    DTO_FIELD(UnorderedFields<String>, links) = {};
+};
+
+class DtoErrors : public oatpp::DTO {
+    DTO_INIT(DtoErrors, DTO)
+
+    DTO_FIELD(UnorderedFields<String>, errors) = {};
+    DTO_FIELD(UnorderedFields<String>, links) = {};
 };
 
 #include OATPP_CODEGEN_END(DTO)

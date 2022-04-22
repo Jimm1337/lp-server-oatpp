@@ -18,6 +18,7 @@ include_directories(src)
 
 add_library(${project_name}-lib
         src/ResponseMacros.hpp
+        src/UtilityMacros.hpp
         src/AppComponent.hpp
         src/controller/MyController.hpp
         src/dto/DTOs.hpp
