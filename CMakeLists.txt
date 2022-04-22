@@ -17,11 +17,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 include_directories(src)
 
 add_library(${project_name}-lib
-        src/ResponseMacros.hpp
-        src/UtilityMacros.hpp
-        src/AppComponent.hpp
         src/controller/MyController.hpp
+        src/service/testService.hpp
+        src/service/testService.cpp
+        src/macro/ResponseMacros.hpp
+        src/macro/UtilityMacros.hpp
         src/dto/DTOs.hpp
+        src/db/Database.hpp
+        src/AppComponent.hpp
 )
 
 find_package(oatpp 1.3.0 REQUIRED)
@@ -42,13 +45,13 @@ add_definitions(
         -DOATPP_SWAGGER_RES_PATH="${oatpp-swagger_INCLUDE_DIRS}/../bin/oatpp-swagger/res"
 
         ## SQLite database file
-        -DDATABASE_FILE="${CMAKE_CURRENT_SOURCE_DIR}/db.sqlite"
+        -DDATABASE_FILE="${CMAKE_CURRENT_SOURCE_DIR}/sql/db.sqlite"
 
         ## SQLite database test file
-        -DTESTDATABASE_FILE="${CMAKE_CURRENT_SOURCE_DIR}/test-db.sqlite"
+        -DTESTDATABASE_FILE="${CMAKE_CURRENT_SOURCE_DIR}/sql/test-db.sqlite"
 
         ## Path to database migration scripts
-        -DDATABASE_MIGRATIONS="${CMAKE_CURRENT_SOURCE_DIR}/sql"
+        -DDATABASE_MIGRATIONS="${CMAKE_CURRENT_SOURCE_DIR}/migration/"
 )
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
