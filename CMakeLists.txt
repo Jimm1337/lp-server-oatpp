@@ -17,6 +17,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 include_directories(src)
 
 add_library(${project_name}-lib
+        src/ResponseMacros.hpp
         src/AppComponent.hpp
         src/controller/MyController.hpp
         src/dto/DTOs.hpp

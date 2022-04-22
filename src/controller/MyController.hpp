@@ -2,6 +2,7 @@
 #define LP_SERVER_OATPP_MYCONTROLLER_HPP
 
 #include "dto/DTOs.hpp"
+#include "ResponseMacros.hpp"
 
 #include <oatpp/web/server/api/ApiController.hpp>
 #include <oatpp/core/macro/codegen.hpp>
@@ -16,11 +17,15 @@ public:
 
 public:
 
-    ENDPOINT("GET", "/hello", root) {
+    ENDPOINT_INFO(hello) {
+        info->summary = "Hello World";
+        info->addResponse<Object<MessageDto>>(Status::CODE_200, "application/vnd.api+json");
+    }
+    ENDPOINT("GET", "/hello", hello) {
         auto dto = MessageDto::createShared();
         dto->statusCode = 200;
         dto->message = "Hello Worrrld";
-        return createDtoResponse(Status::CODE_200, dto);
+        RESPONSE_GET_OK(dto);
     }
 
     //todo: Endpoints here

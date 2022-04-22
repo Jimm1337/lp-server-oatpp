@@ -5,12 +5,16 @@
 #include <oatpp/web/server/HttpConnectionHandler.hpp>
 #include <oatpp/network/tcp/server/ConnectionProvider.hpp>
 #include <oatpp/core/macro/component.hpp>
+#include <oatpp-swagger/Model.hpp>
+#include <oatpp-swagger/Resources.hpp>
 
 namespace network {
     using ProviderPtr_t = std::shared_ptr<oatpp::network::ServerConnectionProvider>;
     using RouterPtr_t = std::shared_ptr<oatpp::web::server::HttpRouter>;
     using HandlerPtr_t = std::shared_ptr<oatpp::network::ConnectionHandler>;
     using MapperPtr_t = std::shared_ptr<oatpp::data::mapping::ObjectMapper>;
+    using SwaggerInfo_t = std::shared_ptr<oatpp::swagger::DocumentInfo>;
+    using SwaggerResources_t = std::shared_ptr<oatpp::swagger::Resources>;
 }
 
 class AppComponent {
@@ -32,6 +36,25 @@ public:
 
     OATPP_CREATE_COMPONENT(network::MapperPtr_t, apiObjectMapper)([] {
         return oatpp::parser::json::mapping::ObjectMapper::createShared();
+    }());
+
+    OATPP_CREATE_COMPONENT(network::SwaggerInfo_t, swaggerInfo)([] {
+        oatpp::swagger::DocumentInfo::Builder builder;
+
+        builder
+            .setTitle("Serwer Linii Produkcyjnej")
+            .setDescription("Dla SNS Automatyk PWR")
+            .setVersion("0.0.1-dev")
+            .setContactName("Oskar Gusta")
+            .setLicenseName("GPL-3.0-or-later")
+            .setLicenseUrl("https://www.gnu.org/licenses/gpl-3.0.en.html")
+            .addServer("http://localhost:8000", "Serwer na localhost");
+
+        return builder.build();
+    }());
+
+    OATPP_CREATE_COMPONENT(network::SwaggerResources_t, swaggerResources)([] {
+        return oatpp::swagger::Resources::loadResources(OATPP_SWAGGER_RES_PATH);
     }());
 
     // OWN COMPONENETS //
