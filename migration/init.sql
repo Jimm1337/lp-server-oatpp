@@ -1,6 +1,6 @@
 CREATE TABLE test (
-testString VARCHAR UNIQUE,
-testFloat FLOAT UNIQUE ,
+testString VARCHAR,
+testFloat FLOAT,
 testInt INTEGER UNIQUE,
-testBool BOOLEAN UNIQUE
+testBool BOOLEAN
 );
