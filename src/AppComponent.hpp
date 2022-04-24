@@ -28,7 +28,7 @@ public:
 
     OATPP_CREATE_COMPONENT(network::ProviderPtr_t, serverConnectionProvider)([] {
         return oatpp::network::tcp::server::ConnectionProvider::createShared(
-                {"localhost", 8000, oatpp::network::Address::IP_4}
+                {SERVER_HOST_IP, 8000, oatpp::network::Address::IP_4}
         );
     }());
 

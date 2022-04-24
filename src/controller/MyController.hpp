@@ -24,6 +24,8 @@
 class MyController : public oatpp::web::server::api::ApiController {
 
     testService m_testService;
+    //todo: add gpioService, add DbService
+    //todo: error handling (look at example-crud/src/Error...)
 
 public:
     explicit MyController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objMapper))

@@ -8,7 +8,7 @@ void run() {
 
     AppComponent components;
 
-    static const oatpp::network::Address serverAddress = {"localhost", 8000, oatpp::network::Address::IP_4};
+    static const oatpp::network::Address serverAddress = {SERVER_HOST_IP, 8000, oatpp::network::Address::IP_4};
 
     OATPP_COMPONENT(network::RouterPtr_t, router);
     OATPP_COMPONENT(network::HandlerPtr_t, connectionHandler);
