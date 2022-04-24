@@ -31,18 +31,12 @@ add_library(${project_name}-lib
         src/AppComponent.hpp
 )
 
-# check for bcm processor (Raspberrypi)
-include(CheckIncludeFile)
-CHECK_INCLUDE_FILE(/opt/vc/include/bcm_host.h BCMHOST)
-if (BCMHOST)
-    # Raspberrypi specifics HERE v (find_package, link WiringPi)
-endif ()
-
 # find libs
 find_package(oatpp 1.3.0 REQUIRED)
 find_package(oatpp-swagger 1.3.0 REQUIRED)
 find_package(oatpp-sqlite 1.3.0 REQUIRED)
 find_package(SQLite3 REQUIRED)
+find_library(bcm2835_lib bcm2835 REQUIRED)
 
 # link libs
 target_link_libraries(${project_name}-lib
@@ -51,6 +45,7 @@ target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp-swagger
         PUBLIC oatpp::oatpp-sqlite
         PUBLIC SQLite::SQLite3
+        PUBLIC bcm2835
 )
 
 # add useful macros

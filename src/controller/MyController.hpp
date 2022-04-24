@@ -10,6 +10,8 @@
 #include <oatpp/core/macro/codegen.hpp>
 #include <oatpp/core/macro/component.hpp>
 
+#include <bcm2835.h> //todo: test endpoints for gpio
+
 // ENDPOINT PATHS DEFS //
 
 #define TEST_SELECT "/testSelect"
@@ -24,7 +26,7 @@
 class MyController : public oatpp::web::server::api::ApiController {
 
     testService m_testService;
-    //todo: add gpioService, add DbService
+    //todo: add DbService
     //todo: error handling (look at example-crud/src/Error...)
 
 public:

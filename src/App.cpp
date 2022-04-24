@@ -4,6 +4,8 @@
 #include <oatpp/network/Server.hpp>
 #include <oatpp-swagger/Controller.hpp>
 
+#include <bcm2835.h>
+
 void run() {
 
     AppComponent components;
@@ -28,9 +30,12 @@ void run() {
 }
 
 int main() {
+    bcm2835_set_debug(1); //todo: comment out in release
+    bcm2835_init();
     oatpp::base::Environment::init();
     run();
     oatpp::base::Environment::destroy();
+    bcm2835_close();
 
     return 0;
 }
