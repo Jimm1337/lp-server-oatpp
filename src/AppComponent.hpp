@@ -59,7 +59,7 @@ public:
             .setContactName("Oskar Gusta")
             .setLicenseName("GPL-3.0-or-later")
             .setLicenseUrl("https://www.gnu.org/licenses/gpl-3.0.en.html")
-            .addServer("http://localhost:8000", "Serwer na localhost");
+            .addServer("http://" SERVER_HOST_IP ":8000", "Default location");
 
         return builder.build();
     }());
