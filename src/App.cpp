@@ -39,3 +39,5 @@ int main() {
 
     return 0;
 }
+
+//todo: write tests for gpio and db

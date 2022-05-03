@@ -8,7 +8,8 @@ set(CMAKE_CXX_STANDARD 20)
 if (MSVC)
     add_compile_options(/W4)
 else()
-    add_compile_options(-Wall -Wextra -Wpedantic)
+    add_compile_options(-Wall -Wextra -Wpedantic -fsanitize=address,undefined)
+    add_link_options(-fsanitize=address,undefined)
 endif()
 
 # set good structure
@@ -51,7 +52,7 @@ target_link_libraries(${project_name}-lib
 # add useful macros
 add_definitions(
         ## SERVER HOST IP ADDR (CHANGE THIS)
-        -DSERVER_HOST_IP="192.168.0.100"
+        -DSERVER_HOST_IP="192.168.0.102"
 
         ## define path to swagger-ui static resources folder
         -DOATPP_SWAGGER_RES_PATH="${oatpp-swagger_INCLUDE_DIRS}/../bin/oatpp-swagger/res"

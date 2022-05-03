@@ -31,6 +31,26 @@ class DtoTestRequest : public oatpp::DTO {
     DTO_FIELD(Object<DtoTest>, data) = {};
 };
 
+class DtoTestGpio : public oatpp::DTO {
+    DTO_INIT(DtoTestGpio, DTO)
+
+    DTO_FIELD(UInt8, pin);
+    DTO_FIELD(UInt8, state);
+};
+
+class DtoTestGpioResponse : public oatpp::DTO {
+    DTO_INIT(DtoTestGpioResponse, DTO)
+
+    DTO_FIELD(UnorderedFields<Object<DtoTestGpio>>, data) = {};
+    DTO_FIELD(UnorderedFields<String>, links) = {};
+};
+
+class DtoTestGpioRequest : public oatpp::DTO {
+    DTO_INIT(DtoTestGpioRequest, DTO)
+
+    DTO_FIELD(Object<DtoTestGpio>, data) = {};
+};
+
 class DtoData : public oatpp::DTO {
     DTO_INIT(DtoData, DTO)
 

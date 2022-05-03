@@ -18,6 +18,8 @@
 #define STRUCTURE "/structure"
 #define TEST_INSERT "/testInsert"
 #define TEST_DELETE "/testDelete"
+#define TEST_GPIO_WRITE "/testGpioWrite"
+#define TEST_GPIO_READ "/testGpioRead"
 
 // ------------------ //
 
@@ -26,8 +28,7 @@
 class MyController : public oatpp::web::server::api::ApiController {
 
     testService m_testService;
-    //todo: add DbService
-    //todo: error handling (look at example-crud/src/Error...)
+    //todo: add other services
 
 public:
     explicit MyController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objMapper))
@@ -51,7 +52,7 @@ public:
         info->summary = "Get by testInt";
         info->addResponse<Object<DtoData>>(Status::CODE_200, "application/vnd.api+json");
     }
-    ENDPOINT("GET", TEST_SELECT"/{testInt}", testSelect,
+    ENDPOINT("GET", TEST_SELECT "/{testInt}", testSelect,
              REQUEST(std::shared_ptr<IncomingRequest>, request),
              PATH(Int32, testInt)
     ) {
@@ -81,11 +82,42 @@ public:
         info->summary = "Delete by testInt";
         info->addResponse<Object<DtoData>>(Status::CODE_200, "application/vnd.api+json");
     }
-    ENDPOINT("DELETE", TEST_DELETE"/{testInt}", testDelete,
+    ENDPOINT("DELETE", TEST_DELETE "/{testInt}", testDelete,
              PATH(Int32, testInt)
     ) {
         m_testService.testDelete(testInt);
         RESPONSE_DELETE_OK();
+    }
+
+    ENDPOINT_INFO(testGpioRead) {
+        info->summary = "Read from gpio pin";
+        info->addResponse<Object<DtoData>>(Status::CODE_200, "application/vnd.api+json");
+    }
+    ENDPOINT("GET", TEST_GPIO_READ "/{pin}", testGpioRead,
+             REQUEST(std::shared_ptr<IncomingRequest>, request),
+             PATH(UInt8, pin)
+    ) {
+        auto dto = DtoTestGpioResponse::createShared();
+        testService::selectGpioInputMode(pin);
+        dto->data["read"] = testService::testGpioRead(pin);
+        INJECT_SELF_LINK(dto, request, TEST_GPIO_READ);
+        RESPONSE_GET_OK(dto);
+    }
+
+    ENDPOINT_INFO(testGpioWrite) {
+        info->summary = "Write to gpio pin";
+        info->addConsumes<Object<DtoTestGpioRequest>>("application/vnd.api+json");
+        info->addResponse<Object<DtoData>>(Status::CODE_200, "application/vnd.api+json");
+    }
+    ENDPOINT("POST", TEST_GPIO_WRITE, testGpioWrite,
+             REQUEST(std::shared_ptr<IncomingRequest>, request),
+             BODY_DTO(Object<DtoTestGpioRequest>, body)
+    ) {
+        auto dto = DtoTestGpioResponse::createShared();
+        testService::selectGpioOutputMode(body->data->pin);
+        dto->data["written"] = testService::testGpioWrite(body->data);
+        INJECT_SELF_LINK(dto, request, TEST_GPIO_READ);
+        RESPONSE_GET_OK(dto);
     }
 
     //todo: Endpoints here
