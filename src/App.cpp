@@ -1,4 +1,4 @@
-#include "controller/MyController.hpp"
+#include "controller/lpController.hpp"
 #include "AppComponent.hpp"
 
 #include <oatpp/network/Server.hpp>
@@ -16,7 +16,7 @@ void run() {
     OATPP_COMPONENT(network::HandlerPtr_t, connectionHandler);
     OATPP_COMPONENT(network::ProviderPtr_t, connectionProvider);
 
-    auto myController = std::make_shared<MyController>();
+    auto myController = std::make_shared<lpController>();
     auto swaggerController = oatpp::swagger::Controller::createShared(myController->getEndpoints());
 
     router->addController(myController);

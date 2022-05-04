@@ -1,9 +1,9 @@
-#include "MyControllerTest.hpp"
+#include "lpControllerTest.hpp"
 
 #include <iostream>
 
 void runTests() {
-    OATPP_RUN_TEST(MyControllerTest);
+    OATPP_RUN_TEST(lpControllerTest);
 
     //todo: add tests
     //OATPP_RUN_TEST(MyAnotherTest);

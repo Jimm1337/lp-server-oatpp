@@ -1,17 +1,17 @@
-#include "MyControllerTest.hpp"
-#include "controller/MyController.hpp"
+#include "lpControllerTest.hpp"
+#include "controller/lpController.hpp"
 #include "app/MyApiTestClient.hpp"
 #include "app/TestComponent.hpp"
 
 #include <oatpp/web/client/HttpRequestExecutor.hpp>
 #include <oatpp-test/web/ClientServerTestRunner.hpp>
 
-void MyControllerTest::onRun() {
+void lpControllerTest::onRun() {
     TestComponent component;
 
     oatpp::test::web::ClientServerTestRunner runner;
 
-    runner.addController(std::make_shared<MyController>());
+    runner.addController(std::make_shared<lpController>());
 
     runner.run([this, &runner] {
         OATPP_COMPONENT(std::shared_ptr<oatpp::network::ClientConnectionProvider>, clientConnectionProvider);

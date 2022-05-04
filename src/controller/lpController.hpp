@@ -1,5 +1,5 @@
-#ifndef LP_SERVER_OATPP_MYCONTROLLER_HPP
-#define LP_SERVER_OATPP_MYCONTROLLER_HPP
+#ifndef LP_SERVER_OATPP_LPCONTROLLER_HPP
+#define LP_SERVER_OATPP_LPCONTROLLER_HPP
 
 #include "dto/DTOs.hpp"
 #include "macro/ResponseMacros.hpp"
@@ -25,13 +25,13 @@
 
 #include OATPP_CODEGEN_BEGIN(ApiController)
 
-class MyController : public oatpp::web::server::api::ApiController {
+class lpController : public oatpp::web::server::api::ApiController {
 
     testService m_testService;
     //todo: add other services
 
 public:
-    explicit MyController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objMapper))
+    explicit lpController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objMapper))
             : oatpp::web::server::api::ApiController(objMapper) {}
 
 
@@ -125,4 +125,4 @@ public:
 
 #include OATPP_CODEGEN_END(ApiController)
 
-#endif //LP_SERVER_OATPP_MYCONTROLLER_HPP
+#endif //LP_SERVER_OATPP_LPCONTROLLER_HPP

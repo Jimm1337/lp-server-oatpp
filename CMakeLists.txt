@@ -22,7 +22,7 @@ include_directories(src)
 
 # add main library
 add_library(${project_name}-lib
-        src/controller/MyController.hpp
+        src/controller/lpController.hpp
         src/service/testService.hpp
         src/service/testService.cpp
         src/macro/ResponseMacros.hpp
@@ -85,8 +85,8 @@ add_executable(${project_name}-test
         test/Tests.cpp
         test/app/TestComponent.hpp
         test/app/MyApiTestClient.hpp
-        test/MyControllerTest.cpp
-        test/MyControllerTest.hpp
+        test/lpControllerTest.cpp
+        test/lpControllerTest.hpp
 )
 target_link_libraries(${project_name}-test ${project_name}-lib)
 add_dependencies(${project_name}-test ${project_name}-lib)
