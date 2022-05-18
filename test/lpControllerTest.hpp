@@ -5,10 +5,10 @@
 
 class lpControllerTest : public oatpp::test::UnitTest {
 public:
+  lpControllerTest(): UnitTest("TEST[lpControllerTest]") {
+  }
 
-    lpControllerTest() : UnitTest("TEST[lpControllerTest]") {}
-
-    void onRun() override;
+  void onRun() override;
 };
 
-#endif //LP_SERVER_OATPP_LPCONTROLLERTEST_HPP
+#endif // LP_SERVER_OATPP_LPCONTROLLERTEST_HPP

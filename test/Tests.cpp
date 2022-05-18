@@ -1,26 +1,27 @@
+#include <iostream>
 #include "lpControllerTest.hpp"
 
-#include <iostream>
-
 void runTests() {
-    OATPP_RUN_TEST(lpControllerTest);
+  OATPP_RUN_TEST(lpControllerTest);
 
-    //todo: add tests
-    //OATPP_RUN_TEST(MyAnotherTest);
+  // todo: add tests
+  // OATPP_RUN_TEST(MyAnotherTest);
 }
 
 int main() {
-    oatpp::base::Environment::init();
+  oatpp::base::Environment::init();
 
-    runTests();
+  runTests();
 
-    std::cout << "\nEnvironment:\n"
-              << "objectsCount = " << oatpp::base::Environment::getObjectsCount() << '\n'
-              << "objectsCreated = " << oatpp::base::Environment::getObjectsCreated() << '\n';
+  std::cout << "\nEnvironment:\n"
+            << "objectsCount = " << oatpp::base::Environment::getObjectsCount()
+            << '\n'
+            << "objectsCreated = "
+            << oatpp::base::Environment::getObjectsCreated() << '\n';
 
-    OATPP_ASSERT(oatpp::base::Environment::getObjectsCount() == 0);
+  OATPP_ASSERT(oatpp::base::Environment::getObjectsCount() == 0);
 
-    oatpp::base::Environment::destroy();
+  oatpp::base::Environment::destroy();
 
-    return 0;
+  return 0;
 }

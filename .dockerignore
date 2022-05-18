@@ -1,0 +1,8 @@
+.idea/
+.code/
+build/
+cmake-build-debug/
+cmake-build-release/
+bin/
+lib/
+sql/
