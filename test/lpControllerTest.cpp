@@ -14,26 +14,26 @@ void lpControllerTest::onRun() {
 
   runner.run(
     [this, &runner] {
-//    OATPP_COMPONENT(
-//      std::shared_ptr<oatpp::network::ClientConnectionProvider>,
-//      clientConnectionProvider);
-//    OATPP_COMPONENT(
-//      std::shared_ptr<oatpp::data::mapping::ObjectMapper>, objMapper);
-//
-//    auto requestExecutor =
-//      oatpp::web::client::HttpRequestExecutor::createShared(
-//        clientConnectionProvider);
-//    auto client   = MyApiTestClient::createShared(requestExecutor, objMapper);
-//    auto response = client->getHello();
-//
-//    OATPP_ASSERT(response->getStatusCode() == 200);
-//
-//    auto message =
-//      response->readBodyToDto<oatpp::Object<MessageDto>>(objMapper.get());
-//
-//    OATPP_ASSERT(message);
-//    OATPP_ASSERT(message->statusCode == 200);
-//    OATPP_ASSERT(message->message == "Hello Worrrld");
+    // OATPP_COMPONENT(
+    //   std::shared_ptr<oatpp::network::ClientConnectionProvider>,
+    //   clientConnectionProvider);
+    // OATPP_COMPONENT(
+    //   std::shared_ptr<oatpp::data::mapping::ObjectMapper>, objMapper);
+    //
+    // auto requestExecutor =
+    //   oatpp::web::client::HttpRequestExecutor::createShared(
+    //     clientConnectionProvider);
+    // auto client   = MyApiTestClient::createShared(requestExecutor,
+    // objMapper); auto response = client->getHello();
+    //
+    // OATPP_ASSERT(response->getStatusCode() == 200);
+    //
+    // auto message =
+    //   response->readBodyToDto<oatpp::Object<MessageDto>>(objMapper.get());
+    //
+    // OATPP_ASSERT(message);
+    // OATPP_ASSERT(message->statusCode == 200);
+    // OATPP_ASSERT(message->message == "Hello Worrrld");
     },
     std::chrono::minutes(10));
 

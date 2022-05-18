@@ -19,15 +19,15 @@ $ docker build . --tag lp-server-oatpp
 ## Run
 ### - Debug
 ```shell
-$ docker run --privileged -it -p 8000:8000 lp-server-oatpp /project/cmake-build-debug/bin/lp-server-oatpp-exe
+$ docker run --privileged --rm -it -p 8000:8000 lp-server-oatpp /project/cmake-build-debug/bin/lp-server-oatpp-exe
 ```
 ### - Release
 ```shell
-$ docker run --privileged -it -p 8000:8000 lp-server-oatpp /project/cmake-build-release/bin/lp-server-oatpp-exe
+$ docker run --privileged --rm -it -p 8000:8000 lp-server-oatpp /project/cmake-build-release/bin/lp-server-oatpp-exe
 ```
 ### - Test
 ```shell
-$ docker run --privileged -it -p 8000:8000 lp-server-oatpp /project/cmake-build-debug/bin/lp-server-oatpp-test
+$ docker run --privileged --rm -it -p 8000:8000 lp-server-oatpp /project/cmake-build-debug/bin/lp-server-oatpp-test
 ```
 
 ## Before you contribute

@@ -1,5 +1,5 @@
 # Target platform. # todo: SET TARGET PLATFORM
-FROM --platform=linux/amd64 debian:stable
+FROM debian:stable
 
 # Update.
 RUN apt update && apt upgrade -y
