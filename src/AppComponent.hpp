@@ -10,43 +10,39 @@
 #include <oatpp/web/server/HttpConnectionHandler.hpp>
 #include "db/Database.hpp"
 
-namespace network {
-using ProviderPtr_t = std::shared_ptr<oatpp::network::ServerConnectionProvider>;
-using RouterPtr_t   = std::shared_ptr<oatpp::web::server::HttpRouter>;
-using HandlerPtr_t  = std::shared_ptr<oatpp::network::ConnectionHandler>;
-using MapperPtr_t   = std::shared_ptr<oatpp::data::mapping::ObjectMapper>;
-using SwaggerInfo_t = std::shared_ptr<oatpp::swagger::DocumentInfo>;
-using SwaggerResources_t = std::shared_ptr<oatpp::swagger::Resources>;
-using DbClient_t         = std::shared_ptr<Database>;
-} // namespace network
-
 class AppComponent {
 public:
   // BASE //
 
-  OATPP_CREATE_COMPONENT(network::ProviderPtr_t, serverConnectionProvider)
+  OATPP_CREATE_COMPONENT(
+    std::shared_ptr<oatpp::network::ServerConnectionProvider>,
+    serverConnectionProvider)
   ([] {
     return oatpp::network::tcp::server::ConnectionProvider::createShared(
       { "0.0.0.0", 8000, oatpp::network::Address::IP_4 });
   }());
 
-  OATPP_CREATE_COMPONENT(network::RouterPtr_t, httpRouter)
+  OATPP_CREATE_COMPONENT(
+    std::shared_ptr<oatpp::web::server::HttpRouter>, httpRouter)
   ([] { return oatpp::web::server::HttpRouter::createShared(); }());
 
-  OATPP_CREATE_COMPONENT(network::HandlerPtr_t, serverConnectionHandler)
+  OATPP_CREATE_COMPONENT(
+    std::shared_ptr<oatpp::network::ConnectionHandler>, serverConnectionHandler)
   ([] {
-    OATPP_COMPONENT(network::RouterPtr_t, router);
+    OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router);
     return oatpp::web::server::HttpConnectionHandler::createShared(router);
   }());
 
   // JSON //
 
-  OATPP_CREATE_COMPONENT(network::MapperPtr_t, apiObjectMapper)
+  OATPP_CREATE_COMPONENT(
+    std::shared_ptr<oatpp::data::mapping::ObjectMapper>, apiObjectMapper)
   ([] { return oatpp::parser::json::mapping::ObjectMapper::createShared(); }());
 
   // SWAGGER //
 
-  OATPP_CREATE_COMPONENT(network::SwaggerInfo_t, swaggerInfo)
+  OATPP_CREATE_COMPONENT(
+    std::shared_ptr<oatpp::swagger::DocumentInfo>, swaggerInfo)
   ([] {
     oatpp::swagger::DocumentInfo::Builder builder;
 
@@ -65,14 +61,15 @@ public:
     return builder.build();
   }());
 
-  OATPP_CREATE_COMPONENT(network::SwaggerResources_t, swaggerResources)
+  OATPP_CREATE_COMPONENT(
+    std::shared_ptr<oatpp::swagger::Resources>, swaggerResources)
   ([] {
     return oatpp::swagger::Resources::loadResources(OATPP_SWAGGER_RES_PATH);
   }());
 
   // SQLITE //
 
-  OATPP_CREATE_COMPONENT(network::DbClient_t, Database)
+  OATPP_CREATE_COMPONENT(std::shared_ptr<network::Database>, Database)
   ([] {
     auto connectionProvider =
       std::make_shared<oatpp::sqlite::ConnectionProvider>(DATABASE_FILE);
