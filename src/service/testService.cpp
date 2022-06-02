@@ -1,7 +1,7 @@
 #include "service/testService.hpp"
 
 testService::testService() {
-  m_gpioChip = gpiod_chip_open(GPIO_CHIP_NAME);
+  m_gpioChip = gpiod_chip_open_by_name(GPIO_CHIP_NAME);
 }
 
 testService::~testService() {
