@@ -1,12 +1,12 @@
 #include "lpControllerTest.hpp"
 #include <oatpp-test/web/ClientServerTestRunner.hpp>
 #include <oatpp/web/client/HttpRequestExecutor.hpp>
-#include "app/MyApiTestClient.hpp"
+#include "app/ApiTestClient.hpp"
 #include "app/TestComponent.hpp"
 #include "controller/lpController.hpp"
 
 void lpControllerTest::onRun() {
-  TestComponent                            component;
+  TestComponent component;
 
   oatpp::test::web::ClientServerTestRunner runner;
 
@@ -23,7 +23,7 @@ void lpControllerTest::onRun() {
     // auto requestExecutor =
     //   oatpp::web::client::HttpRequestExecutor::createShared(
     //     clientConnectionProvider);
-    // auto client   = MyApiTestClient::createShared(requestExecutor,
+    // auto client   = ApiTestClient::createShared(requestExecutor,
     // objMapper); auto response = client->getHello();
     //
     // OATPP_ASSERT(response->getStatusCode() == 200);

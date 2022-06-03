@@ -42,10 +42,13 @@ public:
     STRUCTURE,
     structure,
     REQUEST(std::shared_ptr<IncomingRequest>, request)) {
-    auto dto            = DtoData::createShared();
-    dto->data["sample"] = "example";
-    INJECT_SELF_LINK(dto, request, STRUCTURE);
-    RESPONSE_GET_OK(dto);
+    const auto ret = [&] {
+      auto dto            = DtoData::createShared();
+      dto->data["sample"] = "example";
+      INJECT_SELF_LINK(dto, request, STRUCTURE);
+      return dto;
+    }();
+    RESPONSE_GET_OK(ret);
   }
 
   ENDPOINT_INFO(testSelect) {
@@ -59,10 +62,13 @@ public:
     testSelect,
     REQUEST(std::shared_ptr<IncomingRequest>, request),
     PATH(Int32, testInt)) {
-    auto dto           = DtoTestResponse::createShared();
-    dto->data["found"] = m_testService.testSelect(testInt);
-    INJECT_SELF_LINK(dto, request, TEST_SELECT "/" + std::to_string(testInt));
-    RESPONSE_GET_OK(dto);
+    const auto ret = [&] {
+      auto dto           = DtoTestResponse::createShared();
+      dto->data["found"] = m_testService.testSelect(testInt);
+      INJECT_SELF_LINK(dto, request, TEST_SELECT "/" + std::to_string(testInt));
+      return dto;
+    }();
+    RESPONSE_GET_OK(ret);
   }
 
   ENDPOINT_INFO(testInsert) {
@@ -78,10 +84,13 @@ public:
     REQUEST(std::shared_ptr<IncomingRequest>, request),
     BODY_DTO(Object<DtoTestRequest>, body)) {
     m_testService.testInsert(body->data);
-    auto dto             = DtoTestResponse::createShared();
-    dto->data["created"] = m_testService.testSelect(body->data->testInt);
-    INJECT_SELF_LINK(dto, request, TEST_INSERT);
-    RESPONSE_POST_OK(dto);
+    const auto ret = [&] {
+      auto dto             = DtoTestResponse::createShared();
+      dto->data["created"] = m_testService.testSelect(body->data->testInt);
+      INJECT_SELF_LINK(dto, request, TEST_INSERT);
+      return dto;
+    }();
+    RESPONSE_POST_OK(ret);
   }
 
   ENDPOINT_INFO(testDelete) {
@@ -106,11 +115,13 @@ public:
     testGpioRead,
     REQUEST(std::shared_ptr<IncomingRequest>, request),
     PATH(UInt8, pin)) {
-    auto dto = DtoTestGpioResponse::createShared();
-    testService::selectGpioInputMode(pin);
-    dto->data["read"] = testService::testGpioRead(pin);
-    INJECT_SELF_LINK(dto, request, TEST_GPIO_READ);
-    RESPONSE_GET_OK(dto);
+    const auto ret = [&] {
+      auto dto          = DtoTestGpioResponse::createShared();
+      dto->data["read"] = m_testService.testGpioRead(pin);
+      INJECT_SELF_LINK(dto, request, TEST_GPIO_READ);
+      return dto;
+    }();
+    RESPONSE_GET_OK(ret);
   }
 
   ENDPOINT_INFO(testGpioWrite) {
@@ -125,11 +136,13 @@ public:
     testGpioWrite,
     REQUEST(std::shared_ptr<IncomingRequest>, request),
     BODY_DTO(Object<DtoTestGpioRequest>, body)) {
-    auto dto = DtoTestGpioResponse::createShared();
-    testService::selectGpioOutputMode(body->data->pin);
-    dto->data["written"] = testService::testGpioWrite(body->data);
-    INJECT_SELF_LINK(dto, request, TEST_GPIO_READ);
-    RESPONSE_GET_OK(dto);
+    const auto ret = [&] {
+      auto dto             = DtoTestGpioResponse::createShared();
+      dto->data["written"] = m_testService.testGpioWrite(body->data);
+      INJECT_SELF_LINK(dto, request, TEST_GPIO_READ);
+      return dto;
+    }();
+    RESPONSE_GET_OK(ret);
   }
 
   // todo: Endpoints here

@@ -136,7 +136,7 @@ add_executable(${project_name}-exe
 
 # add test executable
 add_executable(${project_name}-test
-        test/app/MyApiTestClient.hpp
+        test/app/ApiTestClient.hpp
         test/app/TestComponent.hpp
         test/lpControllerTest.cpp
         test/lpControllerTest.hpp
