@@ -11,15 +11,24 @@
 class testService {
   constexpr static auto GPIO_CHIP_NAME = "gpiochip0";
 
-  using Status_t = oatpp::web::protocol::http::Status;
+  using Status  = oatpp::web::protocol::http::Status;
+  using ChipPtr = std::unique_ptr<gpiod_chip, decltype([](gpiod_chip* ptr) {
+                                    if (ptr != nullptr) {
+                                      gpiod_chip_close(ptr);
+                                    }
+                                  })>;
+  using LinePtr = std::unique_ptr<gpiod_line, decltype([](gpiod_line* ptr) {
+                                    if (ptr != nullptr) {
+                                      gpiod_line_release(ptr);
+                                    }
+                                  })>;
 
   OATPP_COMPONENT(std::shared_ptr<network::Database>, m_database);
 
-  gpiod_chip* m_gpioChip;
+  ChipPtr m_gpioChip;
 
 public:
   testService();
-  ~testService();
 
   // db //
 
