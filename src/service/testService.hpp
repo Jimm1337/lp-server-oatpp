@@ -11,20 +11,19 @@
 class testService {
   constexpr static auto GPIO_CHIP_NAME = "gpiochip0";
 
+  using ChipDeleter = decltype([](gpiod_chip* ptr) {
+    if (ptr != nullptr) gpiod_chip_close(ptr);
+  });
+
+  using LineDeleter = decltype([](gpiod_line* ptr) {
+    if (ptr != nullptr) gpiod_line_release(ptr);
+  });
+
   using Status  = oatpp::web::protocol::http::Status;
-  using ChipPtr = std::unique_ptr<gpiod_chip, decltype([](gpiod_chip* ptr) {
-                                    if (ptr != nullptr) {
-                                      gpiod_chip_close(ptr);
-                                    }
-                                  })>;
-  using LinePtr = std::unique_ptr<gpiod_line, decltype([](gpiod_line* ptr) {
-                                    if (ptr != nullptr) {
-                                      gpiod_line_release(ptr);
-                                    }
-                                  })>;
+  using ChipPtr = std::unique_ptr<gpiod_chip, ChipDeleter>;
+  using LinePtr = std::unique_ptr<gpiod_line, LineDeleter>;
 
   OATPP_COMPONENT(std::shared_ptr<network::Database>, m_database);
-
   ChipPtr m_gpioChip;
 
 public:
